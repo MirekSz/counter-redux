@@ -22,21 +22,28 @@ class User extends Component {
         };
     }
 
+//
+//    shouldComponentUpdate(nextProps) {
+//        console.log(this.props, nextProps);
+//        return this.props != nextProps;
+//    }
+
     render() {
+        console.log('render,this: ');
+        console.log(this);
         const {user, selected} = this.props;
         var style = {};
-        if (user.name == selected) {
+        if (selected) {
             style.color = 'green';
             style.fontWeight = 'bold';
         }
         return (
             <li style={style}>
+                {selected}
                 <span onClick={this.select}>{user.name}</span> <a onClick={this.remove} href="#">x</a>
             </li>
         );
     }
 }
 
-export default connect((state)=> {
-    return state;
-})(User);
+export default connect()(User);

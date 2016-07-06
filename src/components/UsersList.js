@@ -25,7 +25,7 @@ export default class UsersList extends Component {
     render() {
         const {users, selectUser, selected} = this.props;
         var usersComponents = users.map((user)=> {
-            return <User key={user.name} selected={selected} user={user}/>
+            return <User key={user.name} selected={selected === user.name} user={user}/>
         });
         return (
             <div>
