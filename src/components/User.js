@@ -37,4 +37,6 @@ class User extends Component {
     }
 }
 
-export default connect()(User);
+export default connect((state)=> {
+    return state;
+})(User);

@@ -4,10 +4,11 @@ import thunk from 'redux-thunk';
 import rootReducer from '../reducers';
 import DevTools from '../containers/DevTools';
 import logger from "redux-logger";
-
+import promise from "redux-promise-middleware";
 const enhancer = compose(
-    applyMiddleware(thunk, logger()),
-    DevTools.instrument(),
+    applyMiddleware(promise(), thunk, logger()),
+//    DevTools.instrument(),
+    window.devToolsExtension ? window.devToolsExtension() : f => f,
     persistState(
         window.location.href.match(
             /[?&]debug_session=([^&#]+)\b/

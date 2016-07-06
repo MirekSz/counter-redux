@@ -7,18 +7,22 @@ import * as UsersActions from '../actions/UsersActions';
 class App extends Component {
     render() {
         const {dispatch} = this.props;
+        var json = JSON.stringify(this.props);
         return (
-            <UsersList {...this.props}
-                {...bindActionCreators(UsersActions, dispatch)} />
-        );
+            <div>
+                <UsersList {...this.props}
+                    {...bindActionCreators(UsersActions, dispatch)} />
+                {json}
+            </div>
+        )
     }
 }
 
 function select(state) {
     return {
         users: state.users,
-        selected: state.selected
-
+        selected: state.selected,
+        n: state.nested
     };
 }
 

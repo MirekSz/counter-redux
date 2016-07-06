@@ -17,8 +17,9 @@ export default class UsersList extends Component {
     }
 
     componentDidMount() {
-        const {fetchUsers} = this.props;
+        const {fetchUsers, fetchUsersFromBackend} = this.props;
         fetchUsers();
+        fetchUsersFromBackend();
     }
 
     render() {

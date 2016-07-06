@@ -1,12 +1,15 @@
-import {FETCH_USERS, ADD_USER, DELETE_USER} from '../constants/ActionTypes';
+import * as T from '../constants/ActionTypes';
 import _ from 'lodash';
+
 export default function users(state = 0, action) {
     switch (action.type) {
-        case FETCH_USERS:
+        case T.FETCH_USERS :
             return action.payload;
-        case ADD_USER:
+        case   T.FETCH_USERS_FULFILLED:
+            return state.concat(action.payload);
+        case T.ADD_USER:
             return [...state, action.payload];
-        case DELETE_USER:
+        case T.DELETE_USER:
             var newState = [...state];
             _.remove(newState, el=>el.name === action.payload);
             return newState;
