@@ -11,7 +11,7 @@ export default function users(state = 0, action) {
             return [...state, action.payload];
         case T.DELETE_USER:
             var newState = [...state];
-            _.remove(newState, el=>el.name === action.payload);
+            _.remove(newState, el=>el.id === action.payload);
             return newState;
         default:
             return state;

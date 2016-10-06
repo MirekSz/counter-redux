@@ -1,30 +1,42 @@
-import {FETCH_USERS, SELECT_USER, ADD_USER, DELETE_USER} from '../constants/ActionTypes';
+import {FETCH_USERS, FETCH_AVATAR, SELECT_USER, ADD_USER, DELETE_USER} from '../constants/ActionTypes';
 import request from 'superagent';
 export function fetchUsers() {
     return {
         type: FETCH_USERS,
-        payload: [{name: 'mirek'}, {name: 'maja'}]
+        payload: [{id: -1, login: 'mirek'}, {id: -2, login: 'maja'}]
     }
 }
 
 export function fetchUsersFromBackend() {
     return {
         type: FETCH_USERS,
-        payload: get('http://rest.learncode.academy/api/wstern/users')
+        payload: get('https://api.github.com/users')
     }
 }
 
-function get(link) {
+function get(link, customizer) {
     return new Promise((resolve, reject)=> {
-        request.get('http://rest.learncode.academy/api/wstern/users').end(function (err, res) {
+        request.get(link).end(function (err, res) {
             if (err || !res.ok) {
                 reject(err)
             } else {
-                resolve(res.body);
+                if (customizer) {
+                    resolve(customizer(res.body));
+                } else {
+                    resolve(res.body);
+                }
             }
         });
     })
 }
+
+export function getAvatar(id) {
+    return {
+        type: FETCH_AVATAR,
+        payload: get('https://api.github.com/users/' + id, (body)=>body.avatar_url)
+    }
+}
+
 
 export function selectUser(id) {
     return function (dispatch) {

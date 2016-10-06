@@ -11,8 +11,7 @@ class App extends Component {
         return (
             <div>
                 <UsersList {...this.props}
-                    {...bindActionCreators(UsersActions, dispatch)} />
-                {json}
+                           {...bindActionCreators(UsersActions, dispatch)} />
             </div>
         )
     }

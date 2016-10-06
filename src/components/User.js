@@ -13,12 +13,12 @@ class User extends Component {
 
         this.select = ()=> {
             const {user} = this.props;
-            dispatch(UsersActions.selectUser(user.name));
+            dispatch(UsersActions.selectUser(user.id));
         };
 
         this.remove = ()=> {
             const {user} = this.props;
-            dispatch(UsersActions.deleteUser(user.name));
+            dispatch(UsersActions.deleteUser(user.id));
         };
     }
 
@@ -29,8 +29,6 @@ class User extends Component {
 //    }
 
     render() {
-        console.log('render,this: ');
-        console.log(this);
         const {user, selected} = this.props;
         var style = {};
         if (selected) {
@@ -40,7 +38,7 @@ class User extends Component {
         return (
             <li style={style}>
                 {selected}
-                <span onClick={this.select}>{user.name}</span> <a onClick={this.remove} href="#">x</a>
+                <span onClick={this.select}>{user.login}</span> <a onClick={this.remove} href="#">x</a>
             </li>
         );
     }
