@@ -6,7 +6,7 @@ export default function users(state = 0, action) {
         case T.FETCH_USERS :
             return action.payload;
         case   T.FETCH_USERS_FULFILLED:
-            return state.concat(action.payload);
+            return state.concat(action.payload.map((element)=>{element.name=element.login;return element;}));
         case T.ADD_USER:
             return [...state, action.payload];
         case T.DELETE_USER:

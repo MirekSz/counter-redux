@@ -1,9 +1,9 @@
-import {FETCH_USERS, FETCH_AVATAR, SELECT_USER, ADD_USER, DELETE_USER} from '../constants/ActionTypes';
+import {FETCH_USERS, SELECT_USER, FETCH_AVATAR_FULFILLED, ADD_USER, DELETE_USER} from '../constants/ActionTypes';
 import request from 'superagent';
 export function fetchUsers() {
     return {
         type: FETCH_USERS,
-        payload: [{id: -1, login: 'mirek'}, {id: -2, login: 'maja'}]
+        payload: [{login: 'mirek'}, {login: 'maja'}]
     }
 }
 
@@ -14,29 +14,27 @@ export function fetchUsersFromBackend() {
     }
 }
 
-function get(link, customizer) {
+function get(link) {
     return new Promise((resolve, reject)=> {
-        request.get(link).end(function (err, res) {
+        request.get('https://api.github.com/users').end(function (err, res) {
             if (err || !res.ok) {
                 reject(err)
             } else {
-                if (customizer) {
-                    resolve(customizer(res.body));
-                } else {
-                    resolve(res.body);
-                }
+                resolve(res.body);
             }
         });
     })
 }
-
 export function getAvatar(id) {
-    return {
-        type: FETCH_AVATAR,
-        payload: get('https://api.github.com/users/' + id, (body)=>body.avatar_url)
+    return function (dispatch) {
+        request.get('https://api.github.com/users/' + id).end(function (err, res) {
+            dispatch({
+                type: FETCH_AVATAR_FULFILLED,
+                payload: res.body
+            })
+        });
     }
 }
-
 
 export function selectUser(id) {
     return function (dispatch) {

@@ -22,6 +22,7 @@ class UserPhoto extends Component {
 //    }
 
     render() {
+        debugger
         var {selected, getAvatar} = this.props;
         if (!selected.avatar) {
             getAvatar(selected.id);
